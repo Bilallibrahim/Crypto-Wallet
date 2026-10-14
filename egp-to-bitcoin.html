@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGP to Bitcoin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="screen active">
+<div class="card form-card">
+  <h2>EGP → Bitcoin</h2>
+  <p class="rate">1 BTC = <strong>2500.00 EGP</strong></p>
+  <label>Bitcoin Amount</label>
+  <input id="btc-buy-amount" type="number" min="0" step="1" placeholder="How much Bitcoin?">
+  <button onclick="buyBitcoin()">Convert</button>
+  <a class="btn secondary" href="bank-menu.html">Back</a>
+</div>
+</main>
+<div id="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>

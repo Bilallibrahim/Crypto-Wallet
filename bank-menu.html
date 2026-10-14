@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Menu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="screen active">
+<div class="card menu-card">
+  <h1>Welcome</h1>
+  <div class="balance-mini">
+    <span>EGP</span><strong id="menu-egp">0.00</strong>
+    <span>BTC</span><strong id="menu-btc">0.00000000</strong>
+  </div>
+  <a class="btn" href="deposit.html">1. Deposit</a>
+  <a class="btn" href="withdraw.html">2. Virtual Card + Withdraw</a>
+  <a class="btn" href="egp-to-bitcoin.html">3. EGP → Bitcoin</a>
+  <a class="btn" href="bitcoin-to-egp.html">4. Bitcoin → EGP</a>
+  <a class="btn" href="balance.html">5. Check Balance</a>
+  <a class="btn" href="change-pin.html">6. Change PIN</a>
+  <a class="btn" href="history.html">7. Transaction History</a>
+  <a class="btn danger" href="#" onclick="logout(); return false;">8. Logout</a>
+</div>
+</main>
+<div id="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>

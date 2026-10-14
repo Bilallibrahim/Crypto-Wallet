@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Balance</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="screen active">
+<div class="card result-card">
+  <h2>Balance</h2>
+  <div class="big-balance"><span>EGP</span><strong id="balance-egp">0.00</strong></div>
+  <div class="big-balance"><span>Bitcoin</span><strong id="balance-btc">0.00000000</strong></div>
+  <button onclick="refreshBalance()">Refresh</button>
+  <a class="btn secondary" href="bank-menu.html">Back</a>
+</div>
+</main>
+<div id="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>

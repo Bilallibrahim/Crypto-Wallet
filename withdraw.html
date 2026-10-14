@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Card + Withdraw</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="screen active">
+<div class="card form-card">
+  <h2>Generate Virtual Card</h2>
+  <p class="subtitle">Withdraw EGP and generate a dynamic 3D virtual credit card.</p>
+  <label>Amount (EGP)</label>
+  <input id="withdraw-amount" type="number" min="1" step="0.01" placeholder="Enter Amount to Withdraw">
+  <button onclick="withdraw()">Confirm Withdrawal</button>
+
+  <!-- Hidden backup element -->
+  <input id="generated-card" class="hidden" readonly>
+
+  <!-- Interactive 3D Virtual Card Section -->
+  <div id="virtual-card-section" class="virtual-card-section hidden">
+    <div id="virtual-card-wrapper" class="virtual-card-wrapper" onclick="flipVirtualCard()" title="Click to Flip">
+      <div class="virtual-card-inner">
+        <!-- Front -->
+        <div id="v-card-front" class="v-card-face v-card-front">
+          <div class="v-card-header">
+            <div class="v-card-bank">
+              <span>₿</span>
+              <span>BITCOIN BANK</span>
+            </div>
+            <div id="v-card-type-tag" class="v-card-type-tag">VIRTUAL</div>
+          </div>
+          <div class="v-card-chip-container">
+            <div class="v-card-chip"></div>
+            <div class="v-card-contactless">📶</div>
+            <div class="v-card-validity-badge">
+              <span class="v-card-pulse-dot"></span>
+              <span id="v-card-countdown">Valid for 24h</span>
+            </div>
+          </div>
+          <div id="v-card-number-display" class="v-card-number">•••• •••• •••• ••••</div>
+          <div class="v-card-footer">
+            <div class="v-card-col">
+              <span class="v-card-label">Card Holder</span>
+              <span id="v-card-holder-display" class="v-card-name">VIP CLIENT</span>
+            </div>
+            <div class="v-card-col">
+              <span class="v-card-label">Expires</span>
+              <span id="v-card-expiry-display" class="v-card-expire">10/31</span>
+            </div>
+            <div id="v-card-brand-display" class="v-card-brand-logo">VISA</div>
+          </div>
+        </div>
+
+        <!-- Back -->
+        <div id="v-card-back" class="v-card-face v-card-back">
+          <div class="v-card-magnetic"></div>
+          <div class="v-card-back-content">
+            <div>
+              <div class="v-card-label" style="text-align: right; margin-bottom: 4px;">Authorized Signature</div>
+              <div class="v-card-cvv-panel">
+                <span id="v-card-cvv-display" class="v-card-cvv-number">•••</span>
+              </div>
+            </div>
+            <div class="v-card-back-footer">
+              <span id="v-card-expire-time">VALID FOR 24H ONLINE USE</span>
+              <span>24/7 SUPPORT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- External Card Info Bar with Live Countdown -->
+    <div class="virtual-card-info-box">
+      <div class="v-info-item">
+        <span class="v-info-label">Card Network</span>
+        <strong id="v-info-brand">Visa Virtual</strong>
+      </div>
+      <div class="v-info-item">
+        <span class="v-info-label">Remaining Time</span>
+        <strong id="v-info-countdown">24h 00m 00s</strong>
+      </div>
+      <div class="v-info-item">
+        <span class="v-info-label">Card Status</span>
+        <span class="v-status-badge">● Temporary Active</span>
+      </div>
+    </div>
+
+    <!-- Interactive Card Control Buttons -->
+    <div class="card-controls">
+      <button type="button" class="card-ctrl-btn" onclick="flipVirtualCard()">
+        <span>🔄</span>
+        <span>Flip Card</span>
+      </button>
+      <button type="button" id="toggle-card-visibility-btn" class="card-ctrl-btn" onclick="toggleCardSensitiveData()">
+        <span id="visibility-icon">👁️</span>
+        <span id="visibility-text">Show Data</span>
+      </button>
+      <button type="button" class="card-ctrl-btn" onclick="copyCardNumber()">
+        <span>📋</span>
+        <span>Copy Number</span>
+      </button>
+    </div>
+  </div>
+
+  <a class="btn secondary" href="bank-menu.html">Back</a>
+</div>
+</main>
+<div id="toast-container"></div>
+<script src="script.js"></script>
+</body>
+</html>
