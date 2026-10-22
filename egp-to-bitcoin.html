@@ -17,6 +17,65 @@
   <a class="btn secondary" href="bank-menu.html">Back</a>
 </div>
 </main>
+
+<!-- Dual-Direction Currency Swap Wallet Modal -->
+<div id="swap-wallet-modal" class="swap-wallet-modal hidden">
+  <div class="swap-wallet-backdrop" onclick="closeSwapWalletModal()"></div>
+  <div class="swap-wallet-dialog">
+    <button class="swap-wallet-close" onclick="closeSwapWalletModal()" title="Close">✕</button>
+    <div class="swap-wallet-badge">INSTANT CURRENCY EXCHANGE</div>
+    <h3 class="swap-wallet-title" id="swap-wallet-title">Converting EGP to Bitcoin</h3>
+    <div class="swap-amount-banner" id="swap-amount-banner">
+      <span class="swap-amount-from" id="swap-amount-from">2,500.00 EGP</span>
+      <span class="swap-amount-arrow">➔</span>
+      <span class="swap-amount-to" id="swap-amount-to">1 BTC</span>
+    </div>
+
+    <!-- The Swap Stage -->
+    <div class="swap-stage">
+      <!-- Mid-Air Energy Portal -->
+      <div class="swap-portal-zone">
+        <span class="swap-portal-icon">⇄</span>
+      </div>
+
+      <!-- Flying Items Layer (Exiting & Entering items) -->
+      <div class="swap-particles-layer" id="swap-particles-layer"></div>
+
+      <!-- Bi-Fold Exchange Wallet -->
+      <div class="swap-bifold-wallet" id="swap-bifold-wallet">
+        <!-- Left Wing: Exiting Currency -->
+        <div class="wallet-wing left-wing">
+          <div class="wallet-wing-slot"></div>
+          <div class="wallet-wing-icon" id="swap-wing-left-icon">💵</div>
+          <div class="wallet-wing-label" id="swap-wing-left-label">OUTFLOW (EGP)</div>
+        </div>
+
+        <!-- Center Titanium Spine -->
+        <div class="wallet-spine"></div>
+
+        <!-- Right Wing: Entering Currency -->
+        <div class="wallet-wing right-wing">
+          <div class="wallet-wing-slot"></div>
+          <div class="wallet-wing-icon" id="swap-wing-right-icon">₿</div>
+          <div class="wallet-wing-label" id="swap-wing-right-label">INFLOW (BTC)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swap Footer & Status -->
+    <div class="swap-footer">
+      <div class="swap-status-row">
+        <span class="swap-pulse-dot"></span>
+        <span id="swap-status-text">Extracting Cash from Wallet...</span>
+      </div>
+      <div class="swap-result-box" id="swap-result-box">
+        New Balance: <strong id="swap-new-balance">...</strong>
+      </div>
+      <button class="btn swap-btn" onclick="closeSwapWalletModal()">Done</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast-container"></div>
 <script src="script.js"></script>
 </body>

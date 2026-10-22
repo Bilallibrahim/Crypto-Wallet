@@ -10,11 +10,8 @@
 <main class="screen active">
 <div class="card form-card">
   <h2>Deposit</h2>
-  <div class="amount-field-wrapper">
-    <div class="flying-money-stage" id="flying-money-stage"></div>
-    <label for="deposit-amount">Amount</label>
-    <input id="deposit-amount" type="number" min="0" step="0.01" placeholder="Please Enter Your Amount">
-  </div>
+  <label for="deposit-amount">Amount</label>
+  <input id="deposit-amount" type="number" min="0" step="0.01" placeholder="Please Enter Your Amount">
   <label>Credit Card Number</label>
   <div class="card-input-wrapper">
     <input id="deposit-card" inputmode="numeric" maxlength="19" placeholder="Please Enter The Card Number">
@@ -40,6 +37,69 @@
   <a class="btn secondary" href="bank-menu.html">Back</a>
 </div>
 </main>
+
+<!-- Big Cinematic Wallet Modal ("محفظة كبيرة تظهر قدام ال user و يترمي جواها bitcoin") -->
+<div id="big-wallet-modal" class="big-wallet-modal hidden">
+  <div class="big-wallet-backdrop" onclick="closeBigWalletModal()"></div>
+  <div class="big-wallet-dialog">
+    <button class="big-wallet-close" onclick="closeBigWalletModal()" title="Close">✕</button>
+    <div class="big-wallet-header">
+      <div class="big-wallet-badge">SECURE CRYPTO VAULT</div>
+      <h3 class="big-wallet-title">Depositing to Wallet</h3>
+      <div class="big-wallet-amount-tag" id="big-wallet-amount-tag">+0.00 EGP</div>
+    </div>
+
+    <!-- The 3D Big Wallet Scene -->
+    <div class="big-wallet-scene" id="big-wallet-scene">
+      <!-- Dropping Bitcoin Coins Container -->
+      <div class="big-wallet-coins-stage" id="big-wallet-coins-stage"></div>
+
+      <!-- The Big Wallet Body -->
+      <div class="big-wallet-object idle-float" id="big-wallet-object">
+        <!-- Glow halo behind wallet -->
+        <div class="wallet-glow-aura"></div>
+        
+        <!-- Back flap / interior wall -->
+        <div class="wallet-back-panel">
+          <div class="wallet-interior-glow"></div>
+        </div>
+
+        <!-- The Pocket Slot Opening where coins plunge into -->
+        <div class="wallet-slot"></div>
+
+        <!-- Front Pocket Body -->
+        <div class="wallet-front-body">
+          <div class="wallet-gold-stitch"></div>
+          <div class="wallet-corner-accent top-left"></div>
+          <div class="wallet-corner-accent top-right"></div>
+          <div class="wallet-corner-accent bottom-left"></div>
+          <div class="wallet-corner-accent bottom-right"></div>
+
+          <!-- Central Gold Bitcoin Medallion Badge -->
+          <div class="wallet-btc-badge">
+            <div class="badge-ring-outer"></div>
+            <span class="badge-btc-symbol">₿</span>
+          </div>
+
+          <div class="wallet-brand-text">BITCOIN RESERVE VAULT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Deposit Counter & Status -->
+    <div class="big-wallet-footer">
+      <div class="big-wallet-status-row">
+        <span class="status-pulse-dot"></span>
+        <span id="big-wallet-status-text">Transferring Bitcoins into Vault...</span>
+      </div>
+      <div class="big-wallet-balance-summary">
+        <div>Total Value: <strong id="big-wallet-btc-val">0.00000000 BTC</strong></div>
+      </div>
+      <button class="btn big-wallet-btn" onclick="closeBigWalletModal()">Done</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast-container"></div>
 <script src="script.js"></script>
 </body>

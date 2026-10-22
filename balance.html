@@ -10,8 +10,22 @@
 <main class="screen active">
 <div class="card result-card">
   <h2>Balance</h2>
-  <div class="big-balance"><span>EGP</span><strong id="balance-egp">0.00</strong></div>
-  <div class="big-balance"><span>Bitcoin</span><strong id="balance-btc">0.00000000</strong></div>
+  <div class="big-balance">
+    <span class="currency-tag">
+      <span class="mini-cash-icon big" title="Egyptian Pounds">
+        <span class="mini-cash-inner">EGP</span>
+      </span>
+      <span class="currency-name">EGP Balance</span>
+    </span>
+    <strong id="balance-egp">0.00</strong>
+  </div>
+  <div class="big-balance">
+    <span class="currency-tag">
+      <span class="mini-btc-icon big" title="Bitcoin">₿</span>
+      <span class="currency-name">Bitcoin Balance</span>
+    </span>
+    <strong id="balance-btc">0.00000000</strong>
+  </div>
   <button onclick="refreshBalance()">Refresh</button>
   <a class="btn secondary" href="bank-menu.html">Back</a>
 </div>

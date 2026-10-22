@@ -286,23 +286,127 @@ button.danger:hover,
 
 /* Balance Mini & Big Balance Cards */
 .balance-mini {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 10px 18px;
-    text-align: left;
-    padding: 18px 22px;
-    margin: 22px 0;
-    background: rgba(24, 26, 34, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+    margin: 18px 0;
+    background: rgba(22, 24, 32, 0.92);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     animation: fadeIn 0.6s ease-out 0.1s both;
 }
 
-.balance-mini span {
+.balance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.currency-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.currency-name {
     color: var(--muted);
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Realistic Mini Egyptian Cash Banknote */
+.mini-cash-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 20px;
+    background: linear-gradient(135deg, #072a1e 0%, #11573b 50%, #27ae60 100%);
+    border: 1px solid rgba(46, 204, 113, 0.85);
+    border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(46, 204, 113, 0.4);
+    position: relative;
+    user-select: none;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    flex-shrink: 0;
+}
+
+.mini-cash-icon::before {
+    content: '';
+    position: absolute;
+    inset: 1.5px;
+    border: 1px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.mini-cash-inner {
+    font-size: 8.5px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 2;
+}
+
+.mini-cash-icon.big {
+    width: 44px;
+    height: 26px;
+}
+.mini-cash-icon.big .mini-cash-inner {
+    font-size: 10.5px;
+}
+
+.mini-cash-icon:hover {
+    transform: scale(1.15) rotate(-4deg);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 16px rgba(46, 204, 113, 0.75);
+}
+
+/* Realistic Mini Golden 3D Bitcoin */
+.mini-btc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff8c4 0%, #ffd966 30%, #d4af37 65%, #8c670a 100%);
+    border: 1.5px solid #fff5cc;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.55);
+    color: #422d00;
+    font-size: 14px;
+    font-weight: 900;
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+    user-select: none;
+    position: relative;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    flex-shrink: 0;
+}
+
+.mini-btc-icon::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px dashed rgba(66, 45, 0, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.mini-btc-icon.big {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+}
+
+.mini-btc-icon:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 215, 0, 0.85);
 }
 
 .balance-mini strong {
@@ -1031,4 +1135,1707 @@ pre {
         opacity: 0;
         transform: translateY(-170px) translateX(18px) scale(0.65) rotate(30deg) rotateY(110deg);
     }
+}
+
+/* ========================================================
+   Interactive Crypto Wallet & Bitcoin Drop Animation
+   ======================================================== */
+
+/* On-Page Wallet Showcase (in deposit.html) */
+.deposit-wallet-showcase {
+    position: relative;
+    width: 100%;
+    margin: 6px 0 16px;
+    background: linear-gradient(135deg, rgba(22, 24, 33, 0.9) 0%, rgba(13, 14, 19, 0.95) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 14px;
+    padding: 12px 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: visible;
+}
+
+.mini-wallet-coins-stage {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    height: 110px;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 15;
+}
+
+.mini-wallet-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    width: 100%;
+    user-select: none;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.mini-wallet-body:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+}
+
+.mini-wallet-icon-box {
+    position: relative;
+    width: 48px;
+    height: 38px;
+    background: linear-gradient(145deg, #282a35 0%, #121318 100%);
+    border: 1.5px solid rgba(212, 175, 55, 0.65);
+    border-radius: 9px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 12px rgba(212, 175, 55, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: visible;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mini-wallet-icon-box.absorb {
+    transform: scale(1.15) translateY(-2px);
+}
+
+.mini-wallet-slot {
+    position: absolute;
+    top: -3px;
+    left: 6px;
+    right: 6px;
+    height: 6px;
+    background: #000000;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.8);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
+
+.mini-wallet-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd966, #d4af37, #997300);
+    color: #121318;
+    font-weight: 900;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.mini-wallet-label {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+}
+
+.mini-wallet-label strong {
+    font-size: 14px;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+}
+
+.mini-wallet-label span {
+    font-size: 12px;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+
+.mini-wallet-pill {
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: #ffd966;
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.mini-wallet-pill:hover {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: #ffd966;
+    transform: scale(1.05);
+}
+
+/* ========================================================
+   Big Cinematic Wallet Modal ("محفظة كبيرة تظهر قدام ال user")
+   ======================================================== */
+.big-wallet-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.big-wallet-modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.big-wallet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 16, 24, 0.94) 0%, rgba(4, 5, 8, 0.98) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.big-wallet-dialog {
+    position: relative;
+    z-index: 10;
+    width: min(520px, 94vw);
+    background: linear-gradient(160deg, rgba(26, 29, 38, 0.96) 0%, rgba(14, 15, 20, 0.98) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 24px;
+    padding: 28px 30px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(212, 175, 55, 0.22);
+    text-align: center;
+    animation: modalPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes modalPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.big-wallet-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.big-wallet-close:hover {
+    background: rgba(224, 69, 90, 0.3);
+    border-color: #e0455a;
+    color: #ff8595;
+    transform: rotate(90deg);
+}
+
+.big-wallet-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ffd966;
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.big-wallet-title {
+    font-size: 26px;
+    margin: 4px 0 6px;
+    background: linear-gradient(135deg, #ffffff 20%, #ffd966 70%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.big-wallet-amount-tag {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2ecc71;
+    text-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+    margin-bottom: 8px;
+}
+
+/* Big Wallet 3D Scene Container */
+.big-wallet-scene {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    margin: 6px 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+/* Dropping Bitcoins Container */
+.big-wallet-coins-stage {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 25;
+}
+
+/* The Grand 3D Crypto Wallet */
+.big-wallet-object {
+    position: relative;
+    width: 290px;
+    height: 180px;
+    margin-top: 32px;
+    transform-style: preserve-3d;
+    transform: perspective(800px) rotateX(12deg);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+/* Subtle idle float */
+.big-wallet-object.idle-float {
+    animation: walletFloat 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes walletFloat {
+    0% {
+        transform: perspective(800px) rotateX(12deg) translateY(0);
+    }
+    100% {
+        transform: perspective(800px) rotateX(16deg) translateY(-8px);
+    }
+}
+
+/* Wallet Absorbs Coin Animation */
+.big-wallet-object.wallet-absorb {
+    animation: walletAbsorbBounce 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes walletAbsorbBounce {
+    0% {
+        transform: perspective(800px) rotateX(12deg) scale(1);
+    }
+    40% {
+        transform: perspective(800px) rotateX(10deg) scale(1.06) translateY(-4px);
+    }
+    100% {
+        transform: perspective(800px) rotateX(12deg) scale(1);
+    }
+}
+
+/* Glowing Aura Behind Wallet */
+.wallet-glow-aura {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle at 50% 60%, rgba(212, 175, 55, 0.45) 0%, rgba(212, 175, 55, 0.1) 45%, transparent 70%);
+    border-radius: 40px;
+    filter: blur(25px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Back flap / interior of the wallet */
+.wallet-back-panel {
+    position: absolute;
+    top: -18px;
+    left: 12px;
+    right: 12px;
+    height: 70px;
+    background: linear-gradient(180deg, #181920 0%, #2a251b 70%, #523f14 100%);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 16px 16px 0 0;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.wallet-interior-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.6) 0%, rgba(212, 175, 55, 0.15) 60%, transparent 100%);
+    animation: goldRaysPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes goldRaysPulse {
+    0% { opacity: 0.55; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1.08); }
+}
+
+/* The Pocket Slot Opening (where coins plunge into!) */
+.wallet-slot {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    right: 20px;
+    height: 18px;
+    background: #08090b;
+    border-radius: 10px;
+    border: 1.5px solid rgba(212, 175, 55, 0.75);
+    box-shadow: inset 0 6px 14px #000000, 0 0 20px rgba(212, 175, 55, 0.5);
+    z-index: 3;
+    overflow: visible;
+}
+
+/* Front Leather Body of Wallet */
+.wallet-front-body {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(160deg, #252834 0%, #161820 40%, #0d0e12 100%);
+    border: 2px solid rgba(212, 175, 55, 0.65);
+    border-radius: 18px;
+    z-index: 5;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), inset 0 2px 4px rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow: hidden;
+}
+
+/* Real Gold Stitching Effect */
+.wallet-gold-stitch {
+    position: absolute;
+    inset: 5px;
+    border: 1.5px dashed rgba(212, 175, 55, 0.45);
+    border-radius: 13px;
+    pointer-events: none;
+}
+
+/* Luxury Gold Corner Brackets */
+.wallet-corner-accent {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ffd966;
+    pointer-events: none;
+}
+.wallet-corner-accent.top-left { top: 8px; left: 8px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+.wallet-corner-accent.top-right { top: 8px; right: 8px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+.wallet-corner-accent.bottom-left { bottom: 8px; left: 8px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
+.wallet-corner-accent.bottom-right { bottom: 8px; right: 8px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
+
+/* Central Gold Bitcoin Medallion Badge */
+.wallet-btc-badge {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff3b3 0%, #f1cb56 35%, #c89617 75%, #7a5806 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    border: 2px solid #fff2a8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    animation: badgePulseGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes badgePulseGlow {
+    0% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.5); }
+    100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.9); }
+}
+
+.badge-ring-outer {
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
+}
+
+.badge-btc-symbol {
+    font-size: 34px;
+    font-weight: 900;
+    color: #3b2a04;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6), 0 -1px 0 rgba(0, 0, 0, 0.5);
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+    transform: translateY(-1px);
+}
+
+.wallet-brand-text {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #e5b940;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ========================================================
+   Dropping 3D Bitcoin Coins
+   ======================================================== */
+.falling-bitcoin-coin {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff7be 0%, #ffd966 30%, #d4af37 65%, #8c670a 100%);
+    border: 2px solid #fffae0;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 18px rgba(255, 215, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #422d00;
+    font-size: 24px;
+    font-weight: 900;
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+    user-select: none;
+    pointer-events: none;
+    will-change: transform, opacity;
+    z-index: 30;
+    animation: coinPlunge 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.falling-bitcoin-coin::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px dashed rgba(66, 45, 0, 0.4);
+    border-radius: 50%;
+}
+
+/* Mini Falling Bitcoin Coin for on-page widget */
+.mini-falling-bitcoin-coin {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff7be 0%, #ffd966 30%, #d4af37 65%, #8c670a 100%);
+    border: 1.5px solid #fffae0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #422d00;
+    font-size: 13px;
+    font-weight: 900;
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+    user-select: none;
+    pointer-events: none;
+    will-change: transform, opacity;
+    z-index: 20;
+    animation: miniCoinPlunge 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Coin dropping into the wallet slot animation */
+@keyframes coinPlunge {
+    0% {
+        opacity: 0;
+        transform: translate(var(--startX), -60px) scale(0.6) rotate(0deg) rotateY(0deg);
+    }
+    18% {
+        opacity: 1;
+        transform: translate(var(--midX), -15px) scale(1.1) rotate(45deg) rotateY(180deg);
+    }
+    65% {
+        opacity: 1;
+        transform: translate(var(--targetX), 45px) scale(1) rotate(90deg) rotateY(360deg);
+    }
+    88% {
+        opacity: 0.95;
+        transform: translate(var(--targetX), 72px) scale(0.7) rotate(135deg) rotateY(540deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--targetX), 88px) scale(0.2) rotate(180deg) rotateY(720deg);
+    }
+}
+
+/* Mini coin dropping animation for on-page widget */
+@keyframes miniCoinPlunge {
+    0% {
+        opacity: 0;
+        transform: translate(var(--startX), -50px) scale(0.5) rotate(0deg);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(var(--midX), -10px) scale(1) rotate(90deg);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(var(--targetX), 24px) scale(0.7) rotate(270deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--targetX), 36px) scale(0.2) rotate(360deg);
+    }
+}
+
+/* Gold Sparkle and Shockwave Impact Ripple */
+.coin-impact-ripple {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #ffd966;
+    box-shadow: 0 0 16px #ffd966;
+    pointer-events: none;
+    z-index: 28;
+    transform: translate(-50%, -50%);
+    animation: impactRipple 0.6s ease-out forwards;
+}
+
+@keyframes impactRipple {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.4);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(3.5);
+    }
+}
+
+.gold-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 16px;
+    z-index: 32;
+    animation: sparkleFly 0.7s ease-out forwards;
+}
+
+@keyframes sparkleFly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(45deg);
+    }
+}
+
+/* Modal Footer & Status */
+.big-wallet-footer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.big-wallet-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #e2e4ec;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-pulse-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #2ecc71;
+    box-shadow: 0 0 10px #2ecc71;
+    animation: pulseDot 1.4s infinite ease-in-out;
+}
+
+.big-wallet-balance-summary {
+    background: rgba(15, 17, 24, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.big-wallet-balance-summary strong {
+    color: #ffd966;
+    font-size: 15px;
+    margin-left: 4px;
+}
+
+.big-wallet-btn {
+    margin-top: 6px;
+    background: linear-gradient(135deg, #ffd966 0%, #d4af37 60%, #b8911f 100%);
+    font-size: 16px;
+}
+
+/* ========================================================
+   Dual-Direction Currency Swap Wallet (BTC ⇄ EGP)
+   Totally Distinct from Deposit
+   ======================================================== */
+.swap-wallet-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.swap-wallet-modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.swap-wallet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(10, 18, 30, 0.95) 0%, rgba(4, 7, 12, 0.98) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.swap-wallet-dialog {
+    position: relative;
+    z-index: 10;
+    width: min(540px, 94vw);
+    background: linear-gradient(160deg, rgba(20, 26, 38, 0.98) 0%, rgba(10, 13, 20, 0.98) 100%);
+    border: 1px solid rgba(72, 202, 228, 0.45);
+    border-radius: 24px;
+    padding: 28px 32px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), 0 0 50px rgba(0, 180, 216, 0.2);
+    text-align: center;
+    animation: swapModalPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes swapModalPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(25px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.swap-wallet-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.swap-wallet-close:hover {
+    background: rgba(224, 69, 90, 0.3);
+    border-color: #e0455a;
+    color: #ff8595;
+    transform: rotate(90deg);
+}
+
+.swap-wallet-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #48cae4;
+    background: rgba(72, 202, 228, 0.12);
+    border: 1px solid rgba(72, 202, 228, 0.35);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.swap-wallet-title {
+    font-size: 24px;
+    margin: 4px 0 8px;
+    background: linear-gradient(135deg, #ffffff 10%, #90e0ef 60%, #00b4d8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.swap-amount-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 17px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 12px;
+    background: rgba(14, 20, 30, 0.6);
+    border: 1px solid rgba(72, 202, 228, 0.2);
+    border-radius: 10px;
+    padding: 8px 16px;
+}
+
+.swap-amount-from { color: #f1cb56; }
+.swap-amount-arrow { color: #48cae4; font-size: 18px; }
+.swap-amount-to { color: #2ecc71; }
+
+/* The Stage Area */
+.swap-stage {
+    position: relative;
+    width: 100%;
+    height: 270px;
+    margin: 10px 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    perspective: 1000px;
+}
+
+/* Mid-Air Swap Energy Portal */
+.swap-portal-zone {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(72, 202, 228, 0.35) 0%, rgba(0, 180, 216, 0.1) 60%, transparent 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #90e0ef;
+    text-shadow: 0 0 18px #48cae4;
+    border: 1.5px dashed rgba(72, 202, 228, 0.6);
+    animation: portalSpin 8s linear infinite;
+    z-index: 10;
+}
+
+@keyframes portalSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.swap-portal-icon {
+    font-weight: 900;
+    animation: portalCounterSpin 8s linear infinite;
+}
+
+@keyframes portalCounterSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+/* Flying items container */
+.swap-particles-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 30;
+}
+
+/* The Bi-Fold Titanium & Carbon Wallet */
+.swap-bifold-wallet {
+    position: relative;
+    width: 320px;
+    height: 140px;
+    background: linear-gradient(145deg, #181d28 0%, #0d1017 60%, #080a0f 100%);
+    border: 2px solid rgba(72, 202, 228, 0.45);
+    border-radius: 16px;
+    display: flex;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(0, 180, 216, 0.2);
+    overflow: hidden;
+    user-select: none;
+    z-index: 15;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.swap-bifold-wallet.pulse-swap {
+    animation: swapWalletBounce 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes swapWalletBounce {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.06) translateY(-4px); border-color: #48cae4; }
+    100% { transform: scale(1); }
+}
+
+/* Left Half & Right Half of Wallet */
+.wallet-wing {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 10px;
+    position: relative;
+    background: rgba(14, 18, 26, 0.5);
+}
+
+.wallet-wing.left-wing {
+    border-right: 1px dashed rgba(72, 202, 228, 0.35);
+}
+
+.wallet-wing-slot {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    right: 12px;
+    height: 12px;
+    background: #040508;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 4px 8px #000;
+}
+
+.wallet-wing.left-wing .wallet-wing-slot {
+    border-color: rgba(224, 69, 90, 0.5);
+    box-shadow: inset 0 4px 8px #000, 0 0 10px rgba(224, 69, 90, 0.25);
+}
+
+.wallet-wing.right-wing .wallet-wing-slot {
+    border-color: rgba(46, 204, 113, 0.6);
+    box-shadow: inset 0 4px 8px #000, 0 0 10px rgba(46, 204, 113, 0.3);
+}
+
+.wallet-wing-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    margin-top: 6px;
+}
+
+.wallet-wing.left-wing .wallet-wing-label {
+    color: #ff758f;
+}
+
+.wallet-wing.right-wing .wallet-wing-label {
+    color: #2ecc71;
+}
+
+.wallet-wing-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Center Metallic Spine / Hinge */
+.wallet-spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 6px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #6c757d 0%, #adb5bd 50%, #495057 100%);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    z-index: 5;
+}
+
+/* Flying Items in Swap */
+.swap-item-exit {
+    position: absolute;
+    bottom: 45px;
+    left: 26%;
+    will-change: transform, opacity;
+    animation: swapExitMotion 1.1s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+    z-index: 35;
+}
+
+@keyframes swapExitMotion {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.6) rotate(0deg);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -40px) scale(1) rotate(15deg);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-10px, -140px) scale(0.9) rotate(45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(20px, -180px) scale(0.3) rotate(90deg);
+    }
+}
+
+.swap-item-enter {
+    position: absolute;
+    top: 35px;
+    right: 20%;
+    will-change: transform, opacity;
+    animation: swapEnterMotion 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    z-index: 35;
+}
+
+@keyframes swapEnterMotion {
+    0% {
+        opacity: 0;
+        transform: translate(35px, -35px) scale(0.3) rotate(-60deg);
+    }
+    25% {
+        opacity: 1;
+        transform: translate(15px, 20px) scale(1.05) rotate(-20deg);
+    }
+    75% {
+        opacity: 1;
+        transform: translate(-30px, 90px) scale(1) rotate(5deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-45px, 140px) scale(0.4) rotate(0deg);
+    }
+}
+
+/* Custom styled flying items for swap */
+.swap-coin {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff8c4 0%, #ffd966 35%, #d4af37 70%, #8c670a 100%);
+    border: 2px solid #fff2a8;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 215, 0, 0.7);
+    color: #422d00;
+    font-size: 22px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+    user-select: none;
+    pointer-events: none;
+}
+
+.swap-bill {
+    width: 52px;
+    height: 28px;
+    background: linear-gradient(135deg, #093b2a 0%, #166846 60%, #2ecc71 100%);
+    border: 1.5px solid rgba(46, 204, 113, 0.9);
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 16px rgba(46, 204, 113, 0.65);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
+    position: relative;
+    user-select: none;
+    pointer-events: none;
+}
+
+.swap-bill::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px dashed rgba(255, 255, 255, 0.45);
+    border-radius: 3px;
+}
+
+/* Swap Footer */
+.swap-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.swap-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #e2e4ec;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.swap-pulse-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #00b4d8;
+    box-shadow: 0 0 12px #00b4d8;
+    animation: pulseDot 1.2s infinite ease-in-out;
+}
+
+.swap-result-box {
+    background: rgba(14, 20, 30, 0.7);
+    border: 1px solid rgba(72, 202, 228, 0.3);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.swap-result-box strong {
+    color: #90e0ef;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.swap-btn {
+    background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 4px;
+}
+
+.swap-btn:hover {
+    background: linear-gradient(135deg, #48cae4 0%, #0096c7 100%);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.45);
+}
+
+/* ========================================================
+   Secret PIN Redacted Modal ("Keep It Secret!!")
+   ======================================================== */
+.secret-pin-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.secret-pin-modal.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.secret-pin-backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(16, 8, 12, 0.95) 0%, rgba(4, 5, 8, 0.98) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.secret-pin-card {
+    position: relative;
+    z-index: 10;
+    width: min(440px, 92vw);
+    background: linear-gradient(160deg, rgba(28, 20, 24, 0.98) 0%, rgba(14, 12, 16, 0.98) 100%);
+    border: 1.5px solid rgba(224, 69, 90, 0.45);
+    border-radius: 22px;
+    padding: 32px 28px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 69, 90, 0.25);
+    text-align: center;
+    animation: secretCardPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes secretCardPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.secret-lock-icon {
+    font-size: 42px;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 15px rgba(224, 69, 90, 0.6));
+    animation: lockJiggle 0.6s ease-in-out;
+}
+
+@keyframes lockJiggle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-10deg) scale(1.1); }
+    50% { transform: rotate(10deg) scale(1.1); }
+    75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+.secret-security-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #ff6b81;
+    background: rgba(224, 69, 90, 0.14);
+    border: 1px solid rgba(224, 69, 90, 0.4);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+}
+
+.secret-title {
+    font-size: 28px;
+    margin: 6px 0 16px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #ffffff 0%, #ff8595 50%, #e0455a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 25px rgba(224, 69, 90, 0.4);
+    animation: secretGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes secretGlow {
+    0% { filter: drop-shadow(0 0 10px rgba(224, 69, 90, 0.3)); }
+    100% { filter: drop-shadow(0 0 20px rgba(224, 69, 90, 0.7)); }
+}
+
+/* Secret PIN Bar & Redaction Strike */
+.secret-pin-bar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 18px;
+}
+
+.secret-pin-bar {
+    position: relative;
+    background: #07080c;
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 14px 34px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: inset 0 4px 12px #000000, 0 4px 20px rgba(0, 0, 0, 0.5);
+    overflow: visible;
+}
+
+.secret-dot {
+    font-size: 26px;
+    color: #ffd966;
+    line-height: 1;
+    user-select: none;
+    animation: dotsObfuscate 0.5s 0.6s forwards;
+}
+
+@keyframes dotsObfuscate {
+    100% {
+        filter: blur(2.5px);
+        opacity: 0.35;
+        transform: scale(0.9);
+    }
+}
+
+/* Redaction Strike Lines ("تشطب عليها كانها مش باينة") */
+.censor-line-main {
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    height: 6px;
+    background: linear-gradient(90deg, #ff2e4d 0%, #e0455a 70%, #9e0f24 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 14px rgba(255, 46, 77, 0.85), 0 2px 6px rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%) rotate(-3deg);
+    transform-origin: left center;
+    width: 0;
+    animation: strikeAcross 0.42s 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    z-index: 5;
+}
+
+.censor-line-secondary {
+    position: absolute;
+    top: 52%;
+    left: -3%;
+    height: 4.5px;
+    background: linear-gradient(90deg, #9e0f24 0%, #ff6b81 60%, #ff2e4d 100%);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(224, 69, 90, 0.7);
+    transform: translateY(-50%) rotate(4deg);
+    transform-origin: left center;
+    width: 0;
+    animation: strikeAcross 0.4s 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    z-index: 6;
+}
+
+@keyframes strikeAcross {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        width: 110%;
+        opacity: 1;
+    }
+}
+
+.secret-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 8px 0 18px;
+    letter-spacing: 0.3px;
+}
+
+.secret-continue-btn {
+    background: linear-gradient(135deg, #ff4d6d 0%, #e0455a 50%, #b8142a 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 4px 18px rgba(224, 69, 90, 0.35);
+    margin-top: 6px;
+}
+
+.secret-continue-btn:hover {
+    background: linear-gradient(135deg, #ff6b81 0%, #e0455a 60%, #9e0f24 100%);
+    box-shadow: 0 6px 24px rgba(224, 69, 90, 0.55);
+}
+
+/* ========================================================
+   Rich Transaction History with Custom Animated Visuals
+   ======================================================== */
+.history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.history-card-header h2 {
+    margin: 0;
+}
+
+.history-count-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 440px;
+    overflow-y: auto;
+    margin: 18px 0;
+    padding-right: 6px;
+}
+
+.history-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+}
+
+.history-empty .empty-icon {
+    font-size: 42px;
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0.6;
+}
+
+.history-item-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 23, 32, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 14px;
+    padding: 12px 18px;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    gap: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    animation: fadeIn 0.4s ease-out both;
+}
+
+.history-item-card:hover {
+    transform: translateX(5px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+}
+
+.history-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.history-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    min-width: 0;
+}
+
+.history-item-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+    word-break: break-word;
+}
+
+.history-item-date {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.history-item-badge {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.history-badge-deposit {
+    background: rgba(46, 204, 113, 0.14);
+    border: 1px solid rgba(46, 204, 113, 0.45);
+    color: #2ecc71;
+}
+
+.history-badge-withdraw {
+    background: rgba(224, 69, 90, 0.14);
+    border: 1px solid rgba(224, 69, 90, 0.45);
+    color: #ff6b81;
+}
+
+.history-badge-swap {
+    background: rgba(72, 202, 228, 0.14);
+    border: 1px solid rgba(72, 202, 228, 0.45);
+    color: #48cae4;
+}
+
+.history-badge-pin {
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: #ffd966;
+}
+
+.history-badge-general {
+    background: rgba(142, 158, 255, 0.14);
+    border: 1px solid rgba(142, 158, 255, 0.45);
+    color: #8e9eff;
+}
+
+/* ========================================================
+   Animated Mini Illustrations inside History Rows
+   ======================================================== */
+.hist-icon-stage {
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(145deg, #181b26 0%, #0c0e14 100%);
+    border: 1.5px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Base Mini Wallet */
+.hist-mini-wallet {
+    position: absolute;
+    bottom: 8px;
+    width: 34px;
+    height: 22px;
+    background: linear-gradient(145deg, #24222a 0%, #121318 100%);
+    border: 1.5px solid rgba(212, 175, 55, 0.65);
+    border-radius: 5px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+    z-index: 5;
+    transition: transform 0.2s ease;
+}
+
+.hist-wallet-slot {
+    position: absolute;
+    top: -3px;
+    left: 4px;
+    right: 4px;
+    height: 5px;
+    background: #000000;
+    border-radius: 3px;
+    border: 1px solid rgba(212, 175, 55, 0.8);
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+}
+
+/* 1. Deposit: Mini money enters inside wallet */
+.hist-flying-bill.deposit-bill {
+    position: absolute;
+    width: 22px;
+    height: 13px;
+    background: linear-gradient(135deg, #093b2a 0%, #166846 60%, #2ecc71 100%);
+    border: 1px solid rgba(46, 204, 113, 0.9);
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 7px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: histBillEnter 1.8s infinite ease-in-out;
+}
+
+@keyframes histBillEnter {
+    0% {
+        transform: translateY(-24px) scale(0.6);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(-13px) scale(0.95);
+        opacity: 1;
+    }
+    70% {
+        transform: translateY(3px) scale(0.85);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(12px) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* 2. Withdraw: Mini money exits wallet */
+.hist-flying-bill.withdraw-bill {
+    position: absolute;
+    width: 22px;
+    height: 13px;
+    background: linear-gradient(135deg, #093b2a 0%, #166846 60%, #2ecc71 100%);
+    border: 1px solid rgba(46, 204, 113, 0.9);
+    border-radius: 3px;
+    color: #ffffff;
+    font-size: 7px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    animation: histBillExit 1.8s infinite ease-in-out;
+}
+
+@keyframes histBillExit {
+    0% {
+        transform: translateY(12px) scale(0.3);
+        opacity: 0;
+    }
+    25% {
+        transform: translateY(2px) scale(0.9);
+        opacity: 1;
+    }
+    75% {
+        transform: translateY(-15px) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-26px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* 3 & 4. Currency Swaps */
+.hist-swap-out-bill,
+.hist-swap-out-coin {
+    position: absolute;
+    z-index: 10;
+    animation: histSwapExit 2.8s infinite ease-in-out;
+}
+
+.hist-swap-in-bill,
+.hist-swap-in-coin {
+    position: absolute;
+    z-index: 10;
+    animation: histSwapEnter 2.8s infinite ease-in-out;
+}
+
+.hist-swap-out-bill,
+.hist-swap-in-bill {
+    font-size: 15px;
+}
+
+.hist-swap-out-coin,
+.hist-swap-in-coin {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff7be, #d4af37, #8c670a);
+    border: 1px solid #fff;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    color: #3a2800;
+    font-size: 10px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Segoe UI Symbol", Arial, sans-serif;
+}
+
+@keyframes histSwapExit {
+    0% {
+        transform: translateY(10px) translateX(0) scale(0.3);
+        opacity: 0;
+    }
+    15% {
+        transform: translateY(0px) translateX(-5px) scale(1);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(-16px) translateX(-10px) scale(0.9);
+        opacity: 1;
+    }
+    48%, 100% {
+        transform: translateY(-24px) translateX(-14px) scale(0.4);
+        opacity: 0;
+    }
+}
+
+@keyframes histSwapEnter {
+    0%, 48% {
+        transform: translateY(-24px) translateX(14px) scale(0.4);
+        opacity: 0;
+    }
+    62% {
+        transform: translateY(-10px) translateX(7px) scale(1);
+        opacity: 1;
+    }
+    88% {
+        transform: translateY(3px) translateX(0) scale(0.85);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(11px) translateX(0) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* 5. Change PIN: Old Card Struck Through & New Card Placed */
+.hist-card-old {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #2b1419 0%, #150a0d 100%);
+    border: 1px solid rgba(224, 69, 90, 0.7);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6b81;
+    font-size: 11px;
+    animation: histOldCardDrop 3.4s infinite ease-in-out;
+    z-index: 6;
+}
+
+.hist-card-slash {
+    position: absolute;
+    top: 50%;
+    left: -4px;
+    right: -4px;
+    height: 2.5px;
+    background: #ff2e4d;
+    box-shadow: 0 0 6px #ff2e4d;
+    transform: translateY(-50%) rotate(-12deg);
+    width: 0;
+    animation: histSlashDraw 3.4s infinite cubic-bezier(0.2, 0.9, 0.3, 1);
+    z-index: 8;
+}
+
+@keyframes histSlashDraw {
+    0%, 18% {
+        width: 0;
+        opacity: 0;
+    }
+    26% {
+        width: 120%;
+        opacity: 1;
+    }
+    48% {
+        width: 120%;
+        opacity: 1;
+    }
+    54%, 100% {
+        width: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes histOldCardDrop {
+    0%, 34% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    44% {
+        transform: translateY(18px) scale(0.6);
+        opacity: 0;
+    }
+    48%, 100% {
+        transform: translateY(18px) scale(0.6);
+        opacity: 0;
+    }
+}
+
+.hist-card-new {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #0e3522 0%, #081e13 100%);
+    border: 1.5px solid rgba(46, 204, 113, 0.85);
+    box-shadow: 0 3px 10px rgba(46, 204, 113, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2ecc71;
+    font-size: 11px;
+    animation: histNewCardLand 3.4s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 7;
+}
+
+@keyframes histNewCardLand {
+    0%, 45% {
+        transform: translateY(-24px) scale(0.5);
+        opacity: 0;
+    }
+    56% {
+        transform: translateY(0) scale(1.08);
+        opacity: 1;
+    }
+    68%, 90% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    96%, 100% {
+        transform: translateY(-16px) scale(0.7);
+        opacity: 0;
+    }
+}
+
+.hist-general-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }

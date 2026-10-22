@@ -12,6 +12,222 @@ function login(){if(!state.exists){toast("Please Create Account First","warning"
 function logout(){state.loggedIn=false;save();toast("Logged out.");setTimeout(()=>location.href="index.html",500)}
 function exitApp(){toast("You can close this browser tab.","warning")}
 function validCardNumber(v){let d=String(v).replace(/\s+/g,"");if(!/^\d+$/.test(d)||d.length<12||d.length>19)return false;let sum=0,doubleDigit=false;for(let i=d.length-1;i>=0;i--){let n=+d[i];if(doubleDigit){n*=2;if(n>9)n-=9}sum+=n;doubleDigit=!doubleDigit}return sum%10===0}
+// ========================================================
+// Flying Money & Big Cinematic Crypto Wallet System
+// ========================================================
+let bigWalletAutoCloseTimer = null;
+
+function spawnFlyingMoney(isBurst = false) {
+    const stage = document.getElementById("flying-money-stage");
+    if (!stage) return;
+
+    const count = isBurst ? 7 : 1;
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const item = document.createElement("div");
+            item.className = "flying-money-item";
+
+            const types = ["green", "gold", "emoji"];
+            const pick = types[Math.floor(Math.random() * types.length)];
+
+            if (pick === "green") {
+                item.innerHTML = '<div class="banknote-green">EGP</div>';
+            } else if (pick === "gold") {
+                item.innerHTML = '<div class="banknote-gold">₿</div>';
+            } else {
+                const emojis = ["💸", "🪙", "💵", "✨", "💰"];
+                const emo = emojis[Math.floor(Math.random() * emojis.length)];
+                item.innerHTML = `<span class="money-emoji">${emo}</span>`;
+            }
+
+            // Random horizontal positioning across the input field width
+            const leftPercent = 8 + Math.random() * 80;
+            const animDuration = 2.2 + Math.random() * 0.7;
+            item.style.left = `${leftPercent}%`;
+            item.style.animationDuration = `${animDuration}s`;
+
+            stage.appendChild(item);
+            setTimeout(() => item.remove(), animDuration * 1000 + 100);
+        }, isBurst ? i * 90 : 0);
+    }
+}
+
+function dropMiniWalletBitcoin() {
+    const stage = document.getElementById("mini-wallet-coins-stage");
+    const iconBox = document.querySelector(".mini-wallet-icon-box");
+    if (!stage) return;
+
+    const coin = document.createElement("div");
+    coin.className = "mini-falling-bitcoin-coin";
+    coin.textContent = "₿";
+
+    const startX = (Math.random() - 0.5) * 80;
+    const midX = (Math.random() - 0.5) * 40;
+    coin.style.setProperty("--startX", `${startX}px`);
+    coin.style.setProperty("--midX", `${midX}px`);
+    coin.style.setProperty("--targetX", `24px`);
+    coin.style.left = "0px";
+
+    stage.appendChild(coin);
+
+    // Absorb animation on the mini wallet icon
+    setTimeout(() => {
+        if (iconBox) {
+            iconBox.classList.add("absorb");
+            setTimeout(() => iconBox.classList.remove("absorb"), 200);
+        }
+    }, 650);
+
+    setTimeout(() => coin.remove(), 900);
+}
+
+function previewWalletDrop() {
+    const hint = document.getElementById("mini-wallet-hint");
+    if (hint) {
+        hint.textContent = "Bitcoins Dropping into Vault! 🪙";
+        hint.style.color = "#ffd966";
+        setTimeout(() => {
+            hint.textContent = "Coins drop into wallet on deposit";
+            hint.style.color = "";
+        }, 2500);
+    }
+
+    // Drop 4 mini coins in rapid succession
+    for (let i = 0; i < 4; i++) {
+        setTimeout(dropMiniWalletBitcoin, i * 150);
+    }
+
+    // Also trigger flying money burst
+    spawnFlyingMoney(true);
+
+    // Launch big wallet animation with test amount or current amount
+    const depAmt = document.getElementById("deposit-amount");
+    const amt = Number(depAmt && depAmt.value ? depAmt.value : 5000);
+    setTimeout(() => {
+        triggerBigWalletDepositAnimation(amt);
+    }, 400);
+}
+
+function triggerBigWalletDepositAnimation(amount) {
+    const modal = document.getElementById("big-wallet-modal");
+    const coinsStage = document.getElementById("big-wallet-coins-stage");
+    const walletObj = document.getElementById("big-wallet-object");
+    const amtTag = document.getElementById("big-wallet-amount-tag");
+    const btcValTag = document.getElementById("big-wallet-btc-val");
+    const statusText = document.getElementById("big-wallet-status-text");
+
+    if (!modal || !coinsStage) return;
+
+    if (bigWalletAutoCloseTimer) {
+        clearTimeout(bigWalletAutoCloseTimer);
+        bigWalletAutoCloseTimer = null;
+    }
+
+    const btcVal = (amount / RATE).toFixed(8);
+    if (amtTag) amtTag.textContent = `+${money(amount)} EGP`;
+    if (btcValTag) btcValTag.textContent = `${btcVal} BTC`;
+    if (statusText) statusText.textContent = `Transferring ${btcVal} BTC into Vault...`;
+
+    // Clear previous coins & sparkles
+    coinsStage.innerHTML = "";
+    modal.classList.remove("hidden");
+
+    // Cascade of golden Bitcoins and cash banknotes falling directly into the wallet pocket
+    const totalItems = 10;
+    for (let i = 0; i < totalItems; i++) {
+        setTimeout(() => {
+            const isBill = (i % 3 === 2);
+            let item;
+            if (isBill) {
+                item = document.createElement("div");
+                item.className = "falling-bitcoin-coin";
+                item.style.width = "52px";
+                item.style.height = "28px";
+                item.style.borderRadius = "5px";
+                item.style.background = "linear-gradient(135deg, #093b2a 0%, #166846 60%, #2ecc71 100%)";
+                item.style.border = "1px solid rgba(46, 204, 113, 0.85)";
+                item.style.color = "#ffffff";
+                item.style.fontSize = "11px";
+                item.style.fontWeight = "900";
+                item.style.boxShadow = "0 6px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(46, 204, 113, 0.7)";
+                item.textContent = "EGP 💵";
+            } else {
+                item = document.createElement("div");
+                item.className = "falling-bitcoin-coin";
+                item.textContent = "₿";
+            }
+
+            const startX = (Math.random() - 0.5) * 320;
+            const midX = (Math.random() - 0.5) * 160;
+            item.style.setProperty("--startX", `${startX}px`);
+            item.style.setProperty("--midX", `${midX}px`);
+            item.style.setProperty("--targetX", `0px`);
+            item.style.left = "50%";
+            item.style.top = "15px";
+
+            coinsStage.appendChild(item);
+
+            // Impact with wallet pocket at 700ms
+            setTimeout(() => {
+                if (walletObj) {
+                    walletObj.classList.remove("wallet-absorb");
+                    void walletObj.offsetWidth; // re-trigger animation
+                    walletObj.classList.add("wallet-absorb");
+                }
+
+                // Impact ripple ring at wallet slot
+                const ripple = document.createElement("div");
+                ripple.className = "coin-impact-ripple";
+                ripple.style.left = "50%";
+                ripple.style.top = "90px";
+                coinsStage.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 650);
+
+                // Burst of gold sparkles
+                for (let s = 0; s < 4; s++) {
+                    const sp = document.createElement("div");
+                    sp.className = "gold-sparkle";
+                    sp.textContent = ["✨", "⭐", "💫"][Math.floor(Math.random() * 3)];
+                    sp.style.left = "50%";
+                    sp.style.top = "85px";
+                    const tx = (Math.random() - 0.5) * 90;
+                    const ty = -30 - Math.random() * 60;
+                    sp.style.setProperty("--tx", `${tx}px`);
+                    sp.style.setProperty("--ty", `${ty}px`);
+                    coinsStage.appendChild(sp);
+                    setTimeout(() => sp.remove(), 700);
+                }
+            }, 700);
+
+            // Remove item after plunge animation completes
+            setTimeout(() => item.remove(), 1150);
+        }, i * 200);
+    }
+
+    // Status update after coins finish falling
+    setTimeout(() => {
+        if (statusText) {
+            statusText.textContent = "✨ All Bitcoins Secured in Vault! ✨";
+        }
+    }, totalItems * 200 + 800);
+
+    // Auto close after 6 seconds if user hasn't clicked Done
+    bigWalletAutoCloseTimer = setTimeout(() => {
+        closeBigWalletModal();
+    }, 6000);
+}
+
+function closeBigWalletModal() {
+    const modal = document.getElementById("big-wallet-modal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+    if (bigWalletAutoCloseTimer) {
+        clearTimeout(bigWalletAutoCloseTimer);
+        bigWalletAutoCloseTimer = null;
+    }
+}
+
 function deposit() {
     if (!requireLogin()) return;
     const depAmt = document.getElementById("deposit-amount");
@@ -37,6 +253,10 @@ function deposit() {
     addHistory(`Deposited: ${money(amount)} EGP`);
     save();
     toast("Deposit successful!");
+
+    // Trigger celebration flying money burst & Big Cinematic Wallet Animation
+    spawnFlyingMoney(true);
+    triggerBigWalletDepositAnimation(amount);
 
     // Clear all deposit form inputs upon successful deposit
     if (depAmt) depAmt.value = "";
@@ -347,11 +567,392 @@ function withdraw() {
     toast(`${brandName} Virtual Card created (${pickedTheme.name})! Valid for 24 hours. 💳⏳`);
 }
 
-function buyBitcoin(){if(!requireLogin())return;let amount=Number(document.getElementById("btc-buy-amount").value);if(!Number.isInteger(amount)||amount<=0){toast("Enter a positive whole Bitcoin amount.","error");return}let cost=amount*RATE;if(cost>state.balanceEGP){toast("Insufficient EGP balance.","error");return}state.balanceEGP-=cost;state.balanceBitcoin+=amount;addHistory(`Converted: ${amount} BTC (${money(cost)} EGP)`);save();toast("Conversion successful!")}
-function sellBitcoin(){if(!requireLogin())return;let amount=Number(document.getElementById("btc-sell-amount").value);if(!Number.isInteger(amount)||amount<=0){toast("Enter a positive whole Bitcoin amount.","error");return}if(amount>state.balanceBitcoin){toast("Insufficient Bitcoin balance.","error");return}let cash=amount*RATE;state.balanceBitcoin-=amount;state.balanceEGP+=cash;addHistory(`Converted: ${amount} BTC → ${money(cash)} EGP`);save();toast("Bitcoin successfully converted!")}
+// ========================================================
+// Currency Swap Wallet (BTC ⇄ EGP) - Distinct from Deposit
+// ========================================================
+let swapWalletAutoCloseTimer = null;
+
+function triggerSwapAnimation(mode, btcAmount, egpAmount) {
+    const modal = document.getElementById("swap-wallet-modal");
+    if (!modal) return;
+
+    if (swapWalletAutoCloseTimer) {
+        clearTimeout(swapWalletAutoCloseTimer);
+        swapWalletAutoCloseTimer = null;
+    }
+
+    const title = document.getElementById("swap-wallet-title");
+    const fromTag = document.getElementById("swap-amount-from");
+    const toTag = document.getElementById("swap-amount-to");
+    const leftIcon = document.getElementById("swap-wing-left-icon");
+    const leftLabel = document.getElementById("swap-wing-left-label");
+    const rightIcon = document.getElementById("swap-wing-right-icon");
+    const rightLabel = document.getElementById("swap-wing-right-label");
+    const particlesLayer = document.getElementById("swap-particles-layer");
+    const walletObj = document.getElementById("swap-bifold-wallet");
+    const statusText = document.getElementById("swap-status-text");
+    const newBal = document.getElementById("swap-new-balance");
+
+    if (mode === "btc-to-egp") {
+        if (title) title.textContent = "Converting Bitcoin → EGP Cash";
+        if (fromTag) fromTag.textContent = `${btc(btcAmount)} BTC`;
+        if (toTag) toTag.textContent = `${money(egpAmount)} EGP`;
+        if (leftIcon) leftIcon.textContent = "₿";
+        if (leftLabel) leftLabel.textContent = "OUTFLOW (BTC)";
+        if (rightIcon) rightIcon.textContent = "💵";
+        if (rightLabel) rightLabel.textContent = "INFLOW (EGP)";
+        if (statusText) statusText.textContent = "Extracting Bitcoin from Wallet...";
+    } else {
+        if (title) title.textContent = "Converting EGP Cash → Bitcoin";
+        if (fromTag) fromTag.textContent = `${money(egpAmount)} EGP`;
+        if (toTag) toTag.textContent = `${btc(btcAmount)} BTC`;
+        if (leftIcon) leftIcon.textContent = "💵";
+        if (leftLabel) leftLabel.textContent = "OUTFLOW (EGP)";
+        if (rightIcon) rightIcon.textContent = "₿";
+        if (rightLabel) rightLabel.textContent = "INFLOW (BTC)";
+        if (statusText) statusText.textContent = "Extracting Cash from Wallet...";
+    }
+
+    if (newBal) {
+        newBal.textContent = `${money(state.balanceEGP)} EGP | ${btc(state.balanceBitcoin)} BTC`;
+    }
+
+    if (particlesLayer) particlesLayer.innerHTML = "";
+    modal.classList.remove("hidden");
+
+    // Phase 1: Outflow - 3 items exit the wallet from the left pocket
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+            if (!particlesLayer) return;
+            const item = document.createElement("div");
+            item.className = "swap-item-exit";
+            if (mode === "btc-to-egp") {
+                item.innerHTML = '<div class="swap-coin">₿</div>';
+            } else {
+                item.innerHTML = '<div class="swap-bill">EGP 💵</div>';
+            }
+            particlesLayer.appendChild(item);
+            setTimeout(() => item.remove(), 1100);
+        }, i * 280);
+    }
+
+    // Phase 2: Converting in Portal
+    setTimeout(() => {
+        if (statusText) {
+            statusText.textContent = "Converting at 1 BTC = 2,500.00 EGP...";
+        }
+    }, 1100);
+
+    // Phase 3: Inflow - 3 replacement items swoop into the right pocket
+    setTimeout(() => {
+        if (statusText) {
+            statusText.textContent = (mode === "btc-to-egp") 
+                ? "Depositing EGP Cash into Wallet..." 
+                : "Depositing Bitcoin into Wallet...";
+        }
+
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                if (!particlesLayer) return;
+                const item = document.createElement("div");
+                item.className = "swap-item-enter";
+                if (mode === "btc-to-egp") {
+                    item.innerHTML = '<div class="swap-bill">EGP 💵</div>';
+                } else {
+                    item.innerHTML = '<div class="swap-coin">₿</div>';
+                }
+                particlesLayer.appendChild(item);
+
+                // Wallet absorbs replacement item
+                setTimeout(() => {
+                    if (walletObj) {
+                        walletObj.classList.remove("pulse-swap");
+                        void walletObj.offsetWidth;
+                        walletObj.classList.add("pulse-swap");
+                    }
+
+                    // Gold / cyan sparkle burst at entrance
+                    for (let s = 0; s < 3; s++) {
+                        const sp = document.createElement("div");
+                        sp.className = "gold-sparkle";
+                        sp.textContent = ["✨", "💎", "⭐"][s];
+                        sp.style.right = "25%";
+                        sp.style.bottom = "40px";
+                        const tx = (Math.random() - 0.5) * 70;
+                        const ty = -20 - Math.random() * 40;
+                        sp.style.setProperty("--tx", `${tx}px`);
+                        sp.style.setProperty("--ty", `${ty}px`);
+                        particlesLayer.appendChild(sp);
+                        setTimeout(() => sp.remove(), 700);
+                    }
+                }, 750);
+
+                setTimeout(() => item.remove(), 1100);
+            }, i * 280);
+        }
+    }, 1600);
+
+    // Phase 4: Complete
+    setTimeout(() => {
+        if (statusText) {
+            statusText.textContent = "✨ Conversion Completed Successfully! ✨";
+        }
+    }, 2800);
+
+    // Auto close timer
+    swapWalletAutoCloseTimer = setTimeout(() => {
+        closeSwapWalletModal();
+    }, 5500);
+}
+
+function closeSwapWalletModal() {
+    const modal = document.getElementById("swap-wallet-modal");
+    if (modal) modal.classList.add("hidden");
+    if (swapWalletAutoCloseTimer) {
+        clearTimeout(swapWalletAutoCloseTimer);
+        swapWalletAutoCloseTimer = null;
+    }
+}
+
+function buyBitcoin() {
+    if (!requireLogin()) return;
+    const input = document.getElementById("btc-buy-amount");
+    let amount = Number(input ? input.value : 0);
+    if (!Number.isInteger(amount) || amount <= 0) {
+        toast("Enter a positive whole Bitcoin amount.", "error");
+        return;
+    }
+    let cost = amount * RATE;
+    if (cost > state.balanceEGP) {
+        toast("Insufficient EGP balance.", "error");
+        return;
+    }
+    state.balanceEGP -= cost;
+    state.balanceBitcoin += amount;
+    addHistory(`Converted: ${money(cost)} EGP → ${amount} BTC`);
+    save();
+    toast("Conversion successful!");
+
+    if (input) input.value = "";
+    triggerSwapAnimation("egp-to-btc", amount, cost);
+}
+
+function sellBitcoin() {
+    if (!requireLogin()) return;
+    const input = document.getElementById("btc-sell-amount");
+    let amount = Number(input ? input.value : 0);
+    if (!Number.isInteger(amount) || amount <= 0) {
+        toast("Enter a positive whole Bitcoin amount.", "error");
+        return;
+    }
+    if (amount > state.balanceBitcoin) {
+        toast("Insufficient Bitcoin balance.", "error");
+        return;
+    }
+    let cash = amount * RATE;
+    state.balanceBitcoin -= amount;
+    state.balanceEGP += cash;
+    addHistory(`Converted: ${amount} BTC → ${money(cash)} EGP`);
+    save();
+    toast("Bitcoin successfully converted!");
+
+    if (input) input.value = "";
+    triggerSwapAnimation("btc-to-egp", amount, cash);
+}
 function refreshBalance(){if(!requireLogin())return;document.getElementById("balance-egp").textContent=`${money(state.balanceEGP)} EGP`;document.getElementById("balance-btc").textContent=btc(state.balanceBitcoin)}
-function changePin(){if(!requireLogin())return;let a=document.getElementById("new-pin").value,b=document.getElementById("new-pin-confirm").value;if(!a){toast("Enter a new PIN.","error");return}if(a!==b){toast("PIN confirmation does not match.","error");return}state.pin=a;addHistory("PIN changed");save();toast("PIN successfully changed.");setTimeout(()=>location.href="bank-menu.html",700)}
-function openHistory(){if(!requireLogin())return;let o=document.getElementById("history-output");o.textContent=state.history.length?state.history.join("\n"):"No transaction history available."}
+let secretPinRedirectTimer = null;
+
+function changePin() {
+    if (!requireLogin()) return;
+    const pinA = document.getElementById("new-pin");
+    const pinB = document.getElementById("new-pin-confirm");
+    let a = pinA ? pinA.value.trim() : "";
+    let b = pinB ? pinB.value.trim() : "";
+
+    if (!a) {
+        toast("Enter a new PIN.", "error");
+        return;
+    }
+    if (a !== b) {
+        toast("PIN confirmation does not match.", "error");
+        return;
+    }
+
+    state.pin = a;
+    addHistory("PIN changed");
+    save();
+
+    // Clear inputs immediately
+    if (pinA) pinA.value = "";
+    if (pinB) pinB.value = "";
+
+    // Show Secret PIN Strike-Through Modal
+    showSecretPinModal();
+}
+
+function showSecretPinModal() {
+    const modal = document.getElementById("secret-pin-modal");
+    if (!modal) {
+        toast("PIN successfully changed.");
+        setTimeout(() => location.href = "bank-menu.html", 700);
+        return;
+    }
+
+    modal.classList.remove("hidden");
+
+    if (secretPinRedirectTimer) clearTimeout(secretPinRedirectTimer);
+    secretPinRedirectTimer = setTimeout(finishPinChange, 3400);
+}
+
+function finishPinChange() {
+    if (secretPinRedirectTimer) {
+        clearTimeout(secretPinRedirectTimer);
+        secretPinRedirectTimer = null;
+    }
+    location.href = "bank-menu.html";
+}
+function renderHistoryVisual(type) {
+    if (type === "deposit") {
+        return `
+            <div class="hist-icon-stage" title="Deposit: Money into wallet">
+                <div class="hist-mini-wallet"><div class="hist-wallet-slot"></div></div>
+                <div class="hist-flying-bill deposit-bill">EGP</div>
+            </div>`;
+    }
+    if (type === "withdraw") {
+        return `
+            <div class="hist-icon-stage" title="Withdraw: Money out of wallet">
+                <div class="hist-mini-wallet"><div class="hist-wallet-slot"></div></div>
+                <div class="hist-flying-bill withdraw-bill">EGP</div>
+            </div>`;
+    }
+    if (type === "egp-to-btc") {
+        return `
+            <div class="hist-icon-stage" title="EGP → Bitcoin: Money out, Bitcoin in">
+                <div class="hist-mini-wallet"><div class="hist-wallet-slot"></div></div>
+                <div class="hist-swap-out-bill">💵</div>
+                <div class="hist-swap-in-coin">₿</div>
+            </div>`;
+    }
+    if (type === "btc-to-egp") {
+        return `
+            <div class="hist-icon-stage" title="Bitcoin → EGP: Bitcoin out, Money in">
+                <div class="hist-mini-wallet"><div class="hist-wallet-slot"></div></div>
+                <div class="hist-swap-out-coin">₿</div>
+                <div class="hist-swap-in-bill">💵</div>
+            </div>`;
+    }
+    if (type === "pin") {
+        return `
+            <div class="hist-icon-stage" title="PIN Changed: Old card struck, new card placed">
+                <div class="hist-card-old">
+                    <span class="hist-card-icon">🔒</span>
+                    <div class="hist-card-slash"></div>
+                </div>
+                <div class="hist-card-new">
+                    <span class="hist-card-icon">🔑</span>
+                </div>
+            </div>`;
+    }
+    // Default general
+    return `
+        <div class="hist-icon-stage" title="System Event">
+            <div class="hist-general-icon">🛡️</div>
+        </div>`;
+}
+
+function parseHistoryEntry(entry) {
+    let parts = entry.split(" | Date: ");
+    let text = parts[0] || entry;
+    let dateStr = parts[1] || "";
+
+    let lower = text.toLowerCase();
+    let type = "general";
+    let badgeText = "INFO";
+    let badgeClass = "history-badge-general";
+
+    if (lower.includes("deposit")) {
+        type = "deposit";
+        badgeText = "+ DEPOSIT";
+        badgeClass = "history-badge-deposit";
+    } else if (lower.includes("withdraw")) {
+        type = "withdraw";
+        badgeText = "- WITHDRAW";
+        badgeClass = "history-badge-withdraw";
+    } else if (lower.includes("converted:") && (lower.includes("egp →") || lower.includes("egp ("))) {
+        type = "egp-to-btc";
+        badgeText = "EGP ➔ BTC";
+        badgeClass = "history-badge-swap";
+    } else if (lower.includes("converted:") && (lower.includes("btc →") || lower.includes("btc ("))) {
+        type = "btc-to-egp";
+        badgeText = "BTC ➔ EGP";
+        badgeClass = "history-badge-swap";
+    } else if (lower.includes("pin changed")) {
+        type = "pin";
+        badgeText = "SECURITY";
+        badgeClass = "history-badge-pin";
+    } else if (lower.includes("virtual credit card") || lower.includes("card entered")) {
+        type = "deposit";
+        badgeText = "CARD";
+        badgeClass = "history-badge-deposit";
+    }
+
+    return {
+        type: type,
+        title: text,
+        date: dateStr ? `Date: ${dateStr}` : "",
+        badgeText: badgeText,
+        badgeClass: badgeClass,
+        visualHtml: renderHistoryVisual(type)
+    };
+}
+
+function openHistory() {
+    if (!requireLogin()) return;
+    const list = document.getElementById("history-list");
+    const countTag = document.getElementById("history-count-tag");
+    const plainOut = document.getElementById("history-output");
+
+    if (plainOut) {
+        plainOut.textContent = state.history.length ? state.history.join("\n") : "No transaction history available.";
+    }
+
+    if (!list) return;
+
+    if (!state.history || state.history.length === 0) {
+        list.innerHTML = `
+            <div class="history-empty">
+                <span class="empty-icon">📂</span>
+                <p>No transaction history available yet.</p>
+            </div>`;
+        if (countTag) countTag.textContent = "0 Transactions";
+        return;
+    }
+
+    if (countTag) {
+        countTag.textContent = `${state.history.length} Record${state.history.length > 1 ? "s" : ""}`;
+    }
+
+    // Render newest items first
+    const reversed = state.history.slice().reverse();
+    let html = "";
+    reversed.forEach(itemStr => {
+        const item = parseHistoryEntry(itemStr);
+        html += `
+            <div class="history-item-card">
+                <div class="history-item-left">
+                    ${item.visualHtml}
+                    <div class="history-item-info">
+                        <div class="history-item-title">${item.title}</div>
+                        ${item.date ? `<div class="history-item-date">${item.date}</div>` : ""}
+                    </div>
+                </div>
+                <div class="history-item-badge ${item.badgeClass}">${item.badgeText}</div>
+            </div>`;
+    });
+
+    list.innerHTML = html;
+}
 document.addEventListener("DOMContentLoaded",()=>{
     let e=document.getElementById("menu-egp"),b=document.getElementById("menu-btc");
     if(e)e.textContent=money(state.balanceEGP);

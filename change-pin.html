@@ -18,6 +18,32 @@
   <a class="btn secondary" href="bank-menu.html">Back</a>
 </div>
 </main>
+
+<!-- Secret PIN Masked & Strikethrough Modal ("Keep It Secret!!") -->
+<div id="secret-pin-modal" class="secret-pin-modal hidden">
+  <div class="secret-pin-backdrop" onclick="finishPinChange()"></div>
+  <div class="secret-pin-card">
+    <div class="secret-lock-icon">🔒</div>
+    <div class="secret-security-badge">SECURITY ENCRYPTED</div>
+    <h3 class="secret-title">Keep It Secret!!</h3>
+    
+    <!-- The PIN Bar with dots and animated censor strike-through -->
+    <div class="secret-pin-bar-wrapper">
+      <div class="secret-pin-bar" id="secret-pin-bar">
+        <span class="secret-dot">●</span>
+        <span class="secret-dot">●</span>
+        <span class="secret-dot">●</span>
+        <span class="secret-dot">●</span>
+        <div class="censor-line-main"></div>
+        <div class="censor-line-secondary"></div>
+      </div>
+    </div>
+
+    <p class="secret-note">Your PIN has been updated and securely masked.</p>
+    <button class="btn secret-continue-btn" onclick="finishPinChange()">Continue to Menu</button>
+  </div>
+</div>
+
 <div id="toast-container"></div>
 <script src="script.js"></script>
 </body>
